@@ -1,10 +1,18 @@
+"""
+LogisticRegression.py
+Microsoft CNTK Tutorial 102
+Sorting simulated data for cancer classification using logistic regression
+Bill Li
+Jul. 13th, 2017
+"""
+
 # Import the relevant components
 from __future__ import print_function
-import numpy as np
-import sys
+
 import os
-from cntk import *
+
 import cntk as C
+from cntk import *
 
 # Select the right target device when this notebook is being tested
 if 'test device' in os.environ:
