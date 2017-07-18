@@ -110,13 +110,10 @@ trainer = C.Trainer(z, (loss, eval_error), [learner])
 
 # Defines a utility function to compute the moving average sum
 """A more efficient implementation is possible with np.cumsum() function"""
-
-
 def moving_average(a, w=10):
     if len(a) < w:
         return a[:]
     return [val if idx < w else sum(a[(idx - w):idx]) / w for idx, val in enumerate(a)]
-
 
 # Defines a utility that prints the training progress
 def print_training_progress(trainer, mb, frequency, verbose=1):
@@ -129,7 +126,6 @@ def print_training_progress(trainer, mb, frequency, verbose=1):
             print("Minibatch: {0}, Loss: {1:4f}, Error: {2:.2f}".format(mb, training_loss, eval_error))
 
     return mb, training_loss, eval_error
-
 
 # Run the trainer
 """minibatch_size is how many samples each iteration that the optimizer works on"""
