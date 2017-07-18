@@ -70,3 +70,41 @@ plt.scatter(features[:, 0], features[:, 1], c=colors)
 plt.xlabel("Scaled age (in yrs)")
 plt.ylabel("Tumor size (in cm)")
 plt.show()
+
+### Model Creation
+"""We will have 2 hidden layers each with 50 nodes (dimension)"""
+
+num_hidden_layers = 2
+hidden_layers_dim = 50
+
+# Defining a linear layer
+"""evidence(z) = weight(W) x feature(x) + bias term(b)"""
+
+
+def linear_layer(input_var, output_dim):
+    input_dim = input_var.shape[0]
+
+    weight = C.parameter(shape=(input_dim, output_dim))
+    bias = C.parameter(shape=(output_dim))
+
+    return bias + C.times(input_var, weight)
+
+
+# Defining one hidden layer
+def dense_layer(input_var, output_dim, nonlinearity):
+    l = linear_layer(input_var, output_dim)
+
+    return nonlinearity(l)
+
+
+# Defining a multilayer feedforward classification model
+def fully_connected_classifier_net(input_var, num_output_classes, hidden_layers_dim, num_hidden_layers, nonlinearity):
+    h = dense_layer(input_var, hidden_layers_dim, nonlinearity)
+    for i in range(1, num_hidden_layers):
+        h = dense_layer(h, hidden_layers_dim, nonlinearity)
+
+    return linear_layer(h, num_output_classes)
+
+
+# Creating the fully connected classifier
+z = fully_connected_classifier_net(input, num_output_classes, hidden_layers_dim, num_hidden_layers, C.sigmoid)
